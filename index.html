@@ -25,7 +25,6 @@
             padding: 20px;
         }
 
-        /* Fireflies */
         .firefly {
             position: fixed;
             width: 4px;
@@ -53,7 +52,6 @@
             80% { opacity: 1; }
         }
 
-        /* Stars */
         .stars {
             position: fixed;
             top: 0;
@@ -82,6 +80,8 @@
         .star:nth-child(8) { top: 20%; left: 35%; animation-delay: 2.5s; }
         .star:nth-child(9) { top: 2%; left: 85%; animation-delay: 0.3s; width: 3px; height: 3px; }
         .star:nth-child(10) { top: 10%; left: 5%; animation-delay: 1.8s; }
+        .star:nth-child(11) { top: 25%; left: 70%; animation-delay: 0.7s; }
+        .star:nth-child(12) { top: 22%; left: 10%; animation-delay: 2.2s; width: 3px; height: 3px; }
 
         @keyframes twinkle {
             0%, 100% { opacity: 0.3; transform: scale(1); }
@@ -90,19 +90,18 @@
 
         .scene {
             position: relative;
-            width: 450px;
-            height: 580px;
+            width: 500px;
+            height: 700px;
         }
 
-        /* GLOW behind everything */
         .glow {
             position: absolute;
-            top: 30px;
+            top: 80px;
             left: 50%;
             transform: translateX(-50%);
-            width: 380px;
-            height: 280px;
-            background: radial-gradient(ellipse, rgba(255, 182, 193, 0.2) 0%, rgba(255, 182, 193, 0.06) 40%, transparent 70%);
+            width: 400px;
+            height: 350px;
+            background: radial-gradient(ellipse, rgba(255, 182, 193, 0.18) 0%, rgba(255, 182, 193, 0.06) 40%, transparent 70%);
             z-index: 1;
             animation: pulse-glow 3s ease-in-out infinite;
         }
@@ -112,14 +111,13 @@
             50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
         }
 
-        /* === STEMS === short, going from wrap top to flowers */
         .stems {
             position: absolute;
-            top: 240px;
+            top: 200px;
             left: 50%;
             transform: translateX(-50%);
-            width: 160px;
-            height: 90px;
+            width: 200px;
+            height: 280px;
             z-index: 5;
         }
 
@@ -131,30 +129,54 @@
             background: linear-gradient(to top, #2d5016, #4a8c2a);
             border-radius: 2px;
             transform-origin: bottom center;
+            animation: stem-grow 1.5s ease-out backwards;
         }
 
-        .stem:nth-child(1) { height: 90px; transform: translateX(-50%) rotate(0deg); }
-        .stem:nth-child(2) { height: 85px; transform: translateX(-50%) rotate(-15deg); }
-        .stem:nth-child(3) { height: 85px; transform: translateX(-50%) rotate(15deg); }
-        .stem:nth-child(4) { height: 80px; transform: translateX(-50%) rotate(-28deg); }
-        .stem:nth-child(5) { height: 80px; transform: translateX(-50%) rotate(28deg); }
-        .stem:nth-child(6) { height: 75px; transform: translateX(-50%) rotate(-40deg); }
-        .stem:nth-child(7) { height: 75px; transform: translateX(-50%) rotate(40deg); }
+        .stem:nth-child(1) { height: 250px; transform: translateX(-50%) rotate(0deg); animation-delay: 0s; }
+        .stem:nth-child(2) { height: 240px; transform: translateX(-50%) rotate(-12deg); animation-delay: 0.1s; }
+        .stem:nth-child(3) { height: 240px; transform: translateX(-50%) rotate(12deg); animation-delay: 0.15s; }
+        .stem:nth-child(4) { height: 230px; transform: translateX(-50%) rotate(-22deg); animation-delay: 0.2s; }
+        .stem:nth-child(5) { height: 230px; transform: translateX(-50%) rotate(22deg); animation-delay: 0.25s; }
+        .stem:nth-child(6) { height: 220px; transform: translateX(-50%) rotate(-30deg); animation-delay: 0.3s; }
+        .stem:nth-child(7) { height: 220px; transform: translateX(-50%) rotate(30deg); animation-delay: 0.35s; }
 
-        /* === FLOWERS CLUSTER === tight bouquet shape */
+        @keyframes stem-grow {
+            0% { height: 0; }
+        }
+
+        .leaf {
+            position: absolute;
+            width: 28px;
+            height: 12px;
+            background: linear-gradient(135deg, #4a8c2a, #2d5016);
+            border-radius: 0 50% 50% 0;
+            transform-origin: left center;
+            animation: leaf-unfurl 0.8s ease-out 1.2s backwards;
+        }
+
+        @keyframes leaf-unfurl {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .stem:nth-child(2) .leaf { bottom: 100px; left: 4px; transform: rotate(-30deg); }
+        .stem:nth-child(3) .leaf { bottom: 110px; right: 4px; left: auto; transform: rotate(30deg) scaleX(-1); }
+        .stem:nth-child(4) .leaf { bottom: 80px; left: 4px; transform: rotate(-25deg); }
+        .stem:nth-child(5) .leaf { bottom: 85px; right: 4px; left: auto; transform: rotate(25deg) scaleX(-1); }
+
         .flowers {
             position: absolute;
-            top: 100px;
+            top: 80px;
             left: 50%;
             transform: translateX(-50%);
-            width: 340px;
-            height: 200px;
+            width: 420px;
+            height: 220px;
             z-index: 8;
         }
 
         .flower-pos {
             position: absolute;
-            animation: bloom 1.8s ease-out backwards;
+            animation: bloom 1.8s ease-out backwards, gentle-sway 4s ease-in-out infinite 2s;
         }
 
         @keyframes bloom {
@@ -163,11 +185,18 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
+        @keyframes gentle-sway {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1) rotate(1.5deg); }
+            75% { transform: scale(1) rotate(-1.5deg); }
+        }
+
         /* === ROSE === */
         .rose {
             position: relative;
-            width: 65px;
-            height: 65px;
+            width: 70px;
+            height: 70px;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
         }
 
         .rose-petal {
@@ -175,180 +204,110 @@
             border-radius: 50%;
         }
 
-        /* Rose Red */
-        .rose-red .rose-petal:nth-child(1) { width: 38px; height: 42px; background: radial-gradient(ellipse at 50% 30%, #e8425a, #b8283e); top: 14px; left: 4px; transform: rotate(-50deg); }
-        .rose-red .rose-petal:nth-child(2) { width: 38px; height: 42px; background: radial-gradient(ellipse at 50% 30%, #e8425a, #b8283e); top: 14px; left: 24px; transform: rotate(50deg); }
-        .rose-red .rose-petal:nth-child(3) { width: 32px; height: 36px; background: radial-gradient(ellipse at 50% 30%, #ff5277, #d63652); top: 8px; left: 7px; transform: rotate(-25deg); }
-        .rose-red .rose-petal:nth-child(4) { width: 32px; height: 36px; background: radial-gradient(ellipse at 50% 30%, #ff5277, #d63652); top: 8px; left: 27px; transform: rotate(25deg); }
-        .rose-red .rose-petal:nth-child(5) { width: 28px; height: 32px; background: radial-gradient(ellipse at 50% 30%, #ff6b8a, #e8425a); top: 12px; left: 19px; }
-        .rose-red .rose-center { position: absolute; width: 14px; height: 14px; background: radial-gradient(circle at 35% 35%, #ff3355, #8a0e2a); border-radius: 50%; top: 24px; left: 26px; box-shadow: inset 2px 2px 4px rgba(0,0,0,0.4); }
+        .rose-red .rose-petal:nth-child(1) { width: 38px; height: 42px; background: radial-gradient(ellipse at 50% 30%, #e8425a, #b8283e); top: 14px; left: 6px; transform: rotate(-50deg); }
+        .rose-red .rose-petal:nth-child(2) { width: 38px; height: 42px; background: radial-gradient(ellipse at 50% 30%, #e8425a, #b8283e); top: 14px; left: 26px; transform: rotate(50deg); }
+        .rose-red .rose-petal:nth-child(3) { width: 32px; height: 36px; background: radial-gradient(ellipse at 50% 30%, #ff5277, #d63652); top: 8px; left: 8px; transform: rotate(-25deg); }
+        .rose-red .rose-petal:nth-child(4) { width: 32px; height: 36px; background: radial-gradient(ellipse at 50% 30%, #ff5277, #d63652); top: 8px; left: 30px; transform: rotate(25deg); }
+        .rose-red .rose-petal:nth-child(5) { width: 28px; height: 32px; background: radial-gradient(ellipse at 50% 30%, #ff6b8a, #e8425a); top: 12px; left: 21px; }
+        .rose-red .rose-center { position: absolute; width: 14px; height: 14px; background: radial-gradient(circle at 35% 35%, #ff3355, #8a0e2a); border-radius: 50%; top: 24px; left: 28px; box-shadow: inset 2px 2px 4px rgba(0,0,0,0.4); }
 
-        /* Rose Pink */
-        .rose-pink .rose-petal:nth-child(1) { width: 36px; height: 40px; background: radial-gradient(ellipse at 50% 30%, #ff7d95, #e86b82); top: 14px; left: 4px; transform: rotate(-50deg); }
-        .rose-pink .rose-petal:nth-child(2) { width: 36px; height: 40px; background: radial-gradient(ellipse at 50% 30%, #ff7d95, #e86b82); top: 14px; left: 24px; transform: rotate(50deg); }
-        .rose-pink .rose-petal:nth-child(3) { width: 30px; height: 34px; background: radial-gradient(ellipse at 50% 30%, #ffa0b4, #ff7d95); top: 8px; left: 8px; transform: rotate(-25deg); }
-        .rose-pink .rose-petal:nth-child(4) { width: 30px; height: 34px; background: radial-gradient(ellipse at 50% 30%, #ffa0b4, #ff7d95); top: 8px; left: 27px; transform: rotate(25deg); }
-        .rose-pink .rose-petal:nth-child(5) { width: 26px; height: 30px; background: radial-gradient(ellipse at 50% 30%, #ffb6c1, #ff91a4); top: 12px; left: 19px; }
-        .rose-pink .rose-center { position: absolute; width: 12px; height: 12px; background: radial-gradient(circle at 35% 35%, #ff6b8a, #c44569); border-radius: 50%; top: 24px; left: 26px; }
+        .rose-pink .rose-petal:nth-child(1) { width: 36px; height: 40px; background: radial-gradient(ellipse at 50% 30%, #ff7d95, #e86b82); top: 14px; left: 6px; transform: rotate(-50deg); }
+        .rose-pink .rose-petal:nth-child(2) { width: 36px; height: 40px; background: radial-gradient(ellipse at 50% 30%, #ff7d95, #e86b82); top: 14px; left: 26px; transform: rotate(50deg); }
+        .rose-pink .rose-petal:nth-child(3) { width: 30px; height: 34px; background: radial-gradient(ellipse at 50% 30%, #ffa0b4, #ff7d95); top: 8px; left: 9px; transform: rotate(-25deg); }
+        .rose-pink .rose-petal:nth-child(4) { width: 30px; height: 34px; background: radial-gradient(ellipse at 50% 30%, #ffa0b4, #ff7d95); top: 8px; left: 30px; transform: rotate(25deg); }
+        .rose-pink .rose-petal:nth-child(5) { width: 26px; height: 30px; background: radial-gradient(ellipse at 50% 30%, #ffb6c1, #ff91a4); top: 12px; left: 21px; }
+        .rose-pink .rose-center { position: absolute; width: 12px; height: 12px; background: radial-gradient(circle at 35% 35%, #ff6b8a, #c44569); border-radius: 50%; top: 24px; left: 28px; }
 
-        /* Rose Deep Red */
-        .rose-deep .rose-petal:nth-child(1) { width: 36px; height: 40px; background: radial-gradient(ellipse at 50% 30%, #a71d2a, #7a1420); top: 14px; left: 4px; transform: rotate(-50deg); }
-        .rose-deep .rose-petal:nth-child(2) { width: 36px; height: 40px; background: radial-gradient(ellipse at 50% 30%, #a71d2a, #7a1420); top: 14px; left: 24px; transform: rotate(50deg); }
-        .rose-deep .rose-petal:nth-child(3) { width: 30px; height: 34px; background: radial-gradient(ellipse at 50% 30%, #c82333, #8b1a2b); top: 8px; left: 8px; transform: rotate(-25deg); }
-        .rose-deep .rose-petal:nth-child(4) { width: 30px; height: 34px; background: radial-gradient(ellipse at 50% 30%, #c82333, #8b1a2b); top: 8px; left: 27px; transform: rotate(25deg); }
-        .rose-deep .rose-petal:nth-child(5) { width: 26px; height: 30px; background: radial-gradient(ellipse at 50% 30%, #dc3545, #a71d2a); top: 12px; left: 19px; }
-        .rose-deep .rose-center { position: absolute; width: 12px; height: 12px; background: radial-gradient(circle at 35% 35%, #8b1a2b, #4a0a14); border-radius: 50%; top: 24px; left: 26px; }
+        .rose-deep .rose-petal:nth-child(1) { width: 36px; height: 40px; background: radial-gradient(ellipse at 50% 30%, #a71d2a, #7a1420); top: 14px; left: 6px; transform: rotate(-50deg); }
+        .rose-deep .rose-petal:nth-child(2) { width: 36px; height: 40px; background: radial-gradient(ellipse at 50% 30%, #a71d2a, #7a1420); top: 14px; left: 26px; transform: rotate(50deg); }
+        .rose-deep .rose-petal:nth-child(3) { width: 30px; height: 34px; background: radial-gradient(ellipse at 50% 30%, #c82333, #8b1a2b); top: 8px; left: 9px; transform: rotate(-25deg); }
+        .rose-deep .rose-petal:nth-child(4) { width: 30px; height: 34px; background: radial-gradient(ellipse at 50% 30%, #c82333, #8b1a2b); top: 8px; left: 30px; transform: rotate(25deg); }
+        .rose-deep .rose-petal:nth-child(5) { width: 26px; height: 30px; background: radial-gradient(ellipse at 50% 30%, #dc3545, #a71d2a); top: 12px; left: 21px; }
+        .rose-deep .rose-center { position: absolute; width: 12px; height: 12px; background: radial-gradient(circle at 35% 35%, #8b1a2b, #4a0a14); border-radius: 50%; top: 24px; left: 28px; }
 
         /* === PEONY === */
         .peony {
             position: relative;
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.25));
         }
 
         .peony-petal {
             position: absolute;
-            width: 28px;
-            height: 35px;
+            width: 30px;
+            height: 38px;
             border-radius: 50%;
             top: 50%;
             left: 50%;
-            margin-top: -17px;
-            margin-left: -14px;
-            transform-origin: center 17px;
+            margin-top: -19px;
+            margin-left: -15px;
+            transform-origin: center 19px;
         }
 
         .peony-pink .ring1 .peony-petal { background: radial-gradient(ellipse at 50% 30%, #f0a0c0, #d680a0); }
-        .peony-pink .ring1 .peony-petal:nth-child(1) { transform: rotate(0deg) translateY(-18px); }
-        .peony-pink .ring1 .peony-petal:nth-child(2) { transform: rotate(60deg) translateY(-18px); }
-        .peony-pink .ring1 .peony-petal:nth-child(3) { transform: rotate(120deg) translateY(-18px); }
-        .peony-pink .ring1 .peony-petal:nth-child(4) { transform: rotate(180deg) translateY(-18px); }
-        .peony-pink .ring1 .peony-petal:nth-child(5) { transform: rotate(240deg) translateY(-18px); }
-        .peony-pink .ring1 .peony-petal:nth-child(6) { transform: rotate(300deg) translateY(-18px); }
+        .peony-pink .ring1 .peony-petal:nth-child(1) { transform: rotate(0deg) translateY(-20px); }
+        .peony-pink .ring1 .peony-petal:nth-child(2) { transform: rotate(60deg) translateY(-20px); }
+        .peony-pink .ring1 .peony-petal:nth-child(3) { transform: rotate(120deg) translateY(-20px); }
+        .peony-pink .ring1 .peony-petal:nth-child(4) { transform: rotate(180deg) translateY(-20px); }
+        .peony-pink .ring1 .peony-petal:nth-child(5) { transform: rotate(240deg) translateY(-20px); }
+        .peony-pink .ring1 .peony-petal:nth-child(6) { transform: rotate(300deg) translateY(-20px); }
 
         .peony-pink .ring2 .peony-petal {
             background: radial-gradient(ellipse at 50% 30%, #f8c8dc, #f0a0c0);
-            width: 22px; height: 28px;
-            margin-top: -14px; margin-left: -11px;
-            transform-origin: center 14px;
+            width: 24px; height: 30px;
+            margin-top: -15px; margin-left: -12px;
+            transform-origin: center 15px;
         }
-        .peony-pink .ring2 .peony-petal:nth-child(1) { transform: rotate(30deg) translateY(-11px); }
-        .peony-pink .ring2 .peony-petal:nth-child(2) { transform: rotate(90deg) translateY(-11px); }
-        .peony-pink .ring2 .peony-petal:nth-child(3) { transform: rotate(150deg) translateY(-11px); }
-        .peony-pink .ring2 .peony-petal:nth-child(4) { transform: rotate(210deg) translateY(-11px); }
-        .peony-pink .ring2 .peony-petal:nth-child(5) { transform: rotate(270deg) translateY(-11px); }
-        .peony-pink .ring2 .peony-petal:nth-child(6) { transform: rotate(330deg) translateY(-11px); }
+        .peony-pink .ring2 .peony-petal:nth-child(1) { transform: rotate(30deg) translateY(-12px); }
+        .peony-pink .ring2 .peony-petal:nth-child(2) { transform: rotate(90deg) translateY(-12px); }
+        .peony-pink .ring2 .peony-petal:nth-child(3) { transform: rotate(150deg) translateY(-12px); }
+        .peony-pink .ring2 .peony-petal:nth-child(4) { transform: rotate(210deg) translateY(-12px); }
+        .peony-pink .ring2 .peony-petal:nth-child(5) { transform: rotate(270deg) translateY(-12px); }
+        .peony-pink .ring2 .peony-petal:nth-child(6) { transform: rotate(330deg) translateY(-12px); }
 
         .peony-pink .peony-center {
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 16px; height: 16px;
+            width: 18px; height: 18px;
             background: radial-gradient(circle, #ffe0ec, #ffb6cd);
             border-radius: 50%;
             box-shadow: 0 0 10px rgba(255, 182, 193, 0.6);
             z-index: 2;
         }
 
-        /* Peony Lavender */
-        .peony-lav { width: 70px; height: 70px; }
-        .peony-lav .ring1 .peony-petal { background: radial-gradient(ellipse at 50% 30%, #c084fc, #a855f7); width: 24px; height: 30px; margin-top: -15px; margin-left: -12px; transform-origin: center 15px; }
-        .peony-lav .ring1 .peony-petal:nth-child(1) { transform: rotate(0deg) translateY(-15px); }
-        .peony-lav .ring1 .peony-petal:nth-child(2) { transform: rotate(72deg) translateY(-15px); }
-        .peony-lav .ring1 .peony-petal:nth-child(3) { transform: rotate(144deg) translateY(-15px); }
-        .peony-lav .ring1 .peony-petal:nth-child(4) { transform: rotate(216deg) translateY(-15px); }
-        .peony-lav .ring1 .peony-petal:nth-child(5) { transform: rotate(288deg) translateY(-15px); }
+        .peony-lav { width: 80px; height: 80px; }
+        .peony-lav .ring1 .peony-petal { background: radial-gradient(ellipse at 50% 30%, #c084fc, #a855f7); width: 26px; height: 34px; margin-top: -17px; margin-left: -13px; transform-origin: center 17px; }
+        .peony-lav .ring1 .peony-petal:nth-child(1) { transform: rotate(0deg) translateY(-17px); }
+        .peony-lav .ring1 .peony-petal:nth-child(2) { transform: rotate(72deg) translateY(-17px); }
+        .peony-lav .ring1 .peony-petal:nth-child(3) { transform: rotate(144deg) translateY(-17px); }
+        .peony-lav .ring1 .peony-petal:nth-child(4) { transform: rotate(216deg) translateY(-17px); }
+        .peony-lav .ring1 .peony-petal:nth-child(5) { transform: rotate(288deg) translateY(-17px); }
 
-        .peony-lav .ring2 .peony-petal { background: radial-gradient(ellipse at 50% 30%, #d8b4fe, #c084fc); width: 18px; height: 24px; margin-top: -12px; margin-left: -9px; transform-origin: center 12px; }
-        .peony-lav .ring2 .peony-petal:nth-child(1) { transform: rotate(36deg) translateY(-9px); }
-        .peony-lav .ring2 .peony-petal:nth-child(2) { transform: rotate(108deg) translateY(-9px); }
-        .peony-lav .ring2 .peony-petal:nth-child(3) { transform: rotate(180deg) translateY(-9px); }
-        .peony-lav .ring2 .peony-petal:nth-child(4) { transform: rotate(252deg) translateY(-9px); }
-        .peony-lav .ring2 .peony-petal:nth-child(5) { transform: rotate(324deg) translateY(-9px); }
+        .peony-lav .ring2 .peony-petal { background: radial-gradient(ellipse at 50% 30%, #d8b4fe, #c084fc); width: 20px; height: 26px; margin-top: -13px; margin-left: -10px; transform-origin: center 13px; }
+        .peony-lav .ring2 .peony-petal:nth-child(1) { transform: rotate(36deg) translateY(-10px); }
+        .peony-lav .ring2 .peony-petal:nth-child(2) { transform: rotate(108deg) translateY(-10px); }
+        .peony-lav .ring2 .peony-petal:nth-child(3) { transform: rotate(180deg) translateY(-10px); }
+        .peony-lav .ring2 .peony-petal:nth-child(4) { transform: rotate(252deg) translateY(-10px); }
+        .peony-lav .ring2 .peony-petal:nth-child(5) { transform: rotate(324deg) translateY(-10px); }
 
         .peony-lav .peony-center {
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 13px; height: 13px;
+            width: 14px; height: 14px;
             background: radial-gradient(circle, #f3e8ff, #d8b4fe);
             border-radius: 50%;
             z-index: 2;
         }
 
-        /* === BABY'S BREATH === */
-        .babys-breath {
-            position: relative;
-            width: 35px;
-            height: 35px;
-        }
-
-        .bb-dot {
-            width: 8px;
-            height: 8px;
-            background: radial-gradient(circle at 35% 35%, #ffffff, #e8e0f0);
-            border-radius: 50%;
-            position: absolute;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-        }
-
-        .bb-dot:nth-child(1) { top: 6px; left: 6px; }
-        .bb-dot:nth-child(2) { top: 0px; left: 16px; }
-        .bb-dot:nth-child(3) { top: 12px; left: 20px; }
-        .bb-dot:nth-child(4) { top: 20px; left: 10px; width: 6px; height: 6px; }
-        .bb-dot:nth-child(5) { top: 4px; left: 24px; width: 6px; height: 6px; }
-        .bb-dot:nth-child(6) { top: 16px; left: 0px; width: 6px; height: 6px; }
-
-        /* === GREENERY === */
-        .greenery {
-            position: relative;
-            width: 45px;
-            height: 45px;
-        }
-
-        .green-leaf {
-            position: absolute;
-            border-radius: 50%;
-        }
-
-        .greenery .green-leaf:nth-child(1) { width: 20px; height: 28px; background: linear-gradient(135deg, #6ab04c, #4a8c2a); top: 0; left: 6px; transform: rotate(-25deg); }
-        .greenery .green-leaf:nth-child(2) { width: 18px; height: 24px; background: linear-gradient(135deg, #78c850, #5ba33a); top: 10px; left: -2px; transform: rotate(-50deg); }
-        .greenery .green-leaf:nth-child(3) { width: 16px; height: 22px; background: linear-gradient(135deg, #88d860, #6ab04c); top: 16px; left: 20px; transform: rotate(20deg); }
-
-        /* === FLOWER POSITIONS === Tight cluster like a real bouquet */
-        /* Top edges - greenery & baby's breath */
-        .pos-green1 { top: 20px; left: 5px; animation-delay: 1.5s; z-index: 6; }
-        .pos-green2 { top: 20px; right: 5px; animation-delay: 1.6s; z-index: 6; transform: scaleX(-1); }
-        .pos-green3 { top: 80px; left: 0px; animation-delay: 1.8s; z-index: 6; }
-        .pos-green4 { top: 80px; right: 0px; animation-delay: 1.9s; z-index: 6; transform: scaleX(-1); }
-
-        .pos-bb1 { top: 0px; left: 100px; animation-delay: 1.6s; z-index: 7; }
-        .pos-bb2 { top: 0px; right: 100px; animation-delay: 1.7s; z-index: 7; }
-        .pos-bb3 { top: 60px; left: 50px; animation-delay: 1.8s; z-index: 11; }
-        .pos-bb4 { top: 60px; right: 50px; animation-delay: 1.9s; z-index: 11; }
-        .pos-bb5 { top: 110px; left: 145px; animation-delay: 2.0s; z-index: 11; }
-
-        /* Center - main peony (largest, top-center) */
-        .pos-peony1 { top: 30px; left: 130px; animation-delay: 0.3s; z-index: 9; }
-
-        /* Side peonies (lavender) */
-        .pos-peony2 { top: 50px; left: 50px; animation-delay: 0.6s; z-index: 8; }
-        .pos-peony3 { top: 50px; right: 50px; animation-delay: 0.7s; z-index: 8; }
-
-        /* Roses - lower middle */
-        .pos-rose1 { top: 80px; left: 138px; animation-delay: 0.5s; z-index: 10; }
-        .pos-rose2 { top: 95px; left: 30px; animation-delay: 0.8s; z-index: 9; }
-        .pos-rose3 { top: 95px; right: 30px; animation-delay: 1.0s; z-index: 9; }
-
-        /* Tulips - bottom (peeking out) */
-        .pos-tulip1 { top: 145px; left: 105px; animation-delay: 1.1s; z-index: 9; }
-        .pos-tulip2 { top: 145px; right: 105px; animation-delay: 1.2s; z-index: 9; }
-
         /* === TULIP === */
         .tulip {
             position: relative;
-            width: 38px;
-            height: 45px;
+            width: 40px;
+            height: 50px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
 
         .tulip-petal {
@@ -356,19 +315,93 @@
             border-radius: 50% 50% 20% 20%;
         }
 
-        .tulip-orange .tulip-petal:nth-child(1) { width: 18px; height: 32px; background: linear-gradient(to top, #d97706, #fbbf24); left: 10px; top: 4px; }
-        .tulip-orange .tulip-petal:nth-child(2) { width: 16px; height: 28px; background: linear-gradient(to top, #b45309, #d97706); left: 2px; top: 8px; transform: rotate(-15deg); }
-        .tulip-orange .tulip-petal:nth-child(3) { width: 16px; height: 28px; background: linear-gradient(to top, #b45309, #d97706); left: 20px; top: 8px; transform: rotate(15deg); }
+        .tulip-orange .tulip-petal:nth-child(1) { width: 18px; height: 36px; background: linear-gradient(to top, #d97706, #fbbf24); left: 11px; top: 6px; }
+        .tulip-orange .tulip-petal:nth-child(2) { width: 18px; height: 32px; background: linear-gradient(to top, #b45309, #d97706); left: 2px; top: 10px; transform: rotate(-15deg); }
+        .tulip-orange .tulip-petal:nth-child(3) { width: 18px; height: 32px; background: linear-gradient(to top, #b45309, #d97706); left: 20px; top: 10px; transform: rotate(15deg); }
 
-        /* === BOUQUET WRAP === smaller, more proportionate */
+        /* === BABY'S BREATH === */
+        .babys-breath {
+            position: relative;
+            width: 40px;
+            height: 40px;
+        }
+
+        .bb-dot {
+            width: 9px;
+            height: 9px;
+            background: radial-gradient(circle at 35% 35%, #ffffff, #e8e0f0);
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+            animation: bb-twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes bb-twinkle {
+            0%, 100% { box-shadow: 0 0 6px rgba(255, 255, 255, 0.5); }
+            50% { box-shadow: 0 0 12px rgba(255, 255, 255, 0.9); }
+        }
+
+        .bb-dot:nth-child(1) { top: 8px; left: 8px; animation-delay: 0s; }
+        .bb-dot:nth-child(2) { top: 0px; left: 18px; animation-delay: 0.5s; }
+        .bb-dot:nth-child(3) { top: 14px; left: 22px; animation-delay: 1s; }
+        .bb-dot:nth-child(4) { top: 22px; left: 12px; width: 7px; height: 7px; animation-delay: 1.5s; }
+        .bb-dot:nth-child(5) { top: 6px; left: 28px; width: 7px; height: 7px; animation-delay: 0.8s; }
+        .bb-dot:nth-child(6) { top: 18px; left: 2px; width: 6px; height: 6px; animation-delay: 1.2s; }
+
+        /* === GREENERY === */
+        .greenery {
+            position: relative;
+            width: 50px;
+            height: 50px;
+        }
+
+        .green-leaf {
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .greenery .green-leaf:nth-child(1) { width: 22px; height: 30px; background: linear-gradient(135deg, #6ab04c, #4a8c2a); top: 0; left: 8px; transform: rotate(-25deg); }
+        .greenery .green-leaf:nth-child(2) { width: 20px; height: 26px; background: linear-gradient(135deg, #78c850, #5ba33a); top: 12px; left: -2px; transform: rotate(-50deg); }
+        .greenery .green-leaf:nth-child(3) { width: 18px; height: 24px; background: linear-gradient(135deg, #88d860, #6ab04c); top: 18px; left: 22px; transform: rotate(20deg); }
+
+        /* === FLOWER POSITIONS === */
+        .pos-bb1 { top: 0px; left: 60px; animation-delay: 1.6s; z-index: 6; }
+        .pos-bb2 { top: 5px; left: 320px; animation-delay: 1.8s; z-index: 6; }
+        .pos-bb3 { top: 60px; left: 30px; animation-delay: 2.0s; z-index: 6; }
+        .pos-bb4 { top: 55px; left: 350px; animation-delay: 2.1s; z-index: 6; }
+        .pos-bb5 { top: 20px; left: 200px; animation-delay: 1.7s; z-index: 6; }
+
+        .pos-green1 { top: 30px; left: 5px; animation-delay: 1.5s; z-index: 6; }
+        .pos-green2 { top: 30px; left: 365px; animation-delay: 1.6s; z-index: 6; transform: scaleX(-1); }
+        .pos-green3 { top: 95px; left: 0px; animation-delay: 1.8s; z-index: 6; }
+        .pos-green4 { top: 95px; left: 370px; animation-delay: 1.9s; z-index: 6; transform: scaleX(-1); }
+
+        .pos-peony1 { top: 30px; left: 165px; animation-delay: 0.3s; z-index: 9; }
+        .pos-peony2 { top: 50px; left: 80px; animation-delay: 0.6s; z-index: 8; }
+        .pos-peony3 { top: 50px; left: 260px; animation-delay: 0.7s; z-index: 8; }
+
+        .pos-rose1 { top: 70px; left: 175px; animation-delay: 0.5s; z-index: 10; }
+        .pos-rose2 { top: 90px; left: 60px; animation-delay: 0.8s; z-index: 9; }
+        .pos-rose3 { top: 90px; left: 290px; animation-delay: 1.0s; z-index: 9; }
+
+        .pos-tulip1 { top: 110px; left: 130px; animation-delay: 1.1s; z-index: 9; }
+        .pos-tulip2 { top: 110px; left: 235px; animation-delay: 1.2s; z-index: 9; }
+
+        /* === BOUQUET WRAP === */
         .wrap {
             position: absolute;
-            top: 320px;
+            top: 420px;
             left: 50%;
             transform: translateX(-50%);
-            width: 200px;
-            height: 200px;
+            width: 240px;
+            height: 270px;
             z-index: 12;
+            animation: wrap-appear 1s ease-out 0.2s backwards;
+        }
+
+        @keyframes wrap-appear {
+            0% { opacity: 0; transform: translateX(-50%) translateY(30px); }
+            100% { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
         .wrap-paper {
@@ -376,10 +409,10 @@
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 180px;
-            height: 200px;
+            width: 220px;
+            height: 260px;
             background: linear-gradient(135deg, #f5e6d3 0%, #e8d5c4 50%, #d8c5b4 100%);
-            clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
+            clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
             box-shadow: inset -20px 0 40px rgba(0,0,0,0.1), inset 20px 0 40px rgba(255,255,255,0.3);
             z-index: 3;
         }
@@ -388,9 +421,9 @@
             position: absolute;
             top: 0;
             left: 50%;
-            transform: translateX(-90%);
-            width: 110px;
-            height: 195px;
+            transform: translateX(-92%);
+            width: 130px;
+            height: 250px;
             background: linear-gradient(135deg, #ede0d4, #ddd0c0);
             clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 0% 100%);
             z-index: 1;
@@ -400,32 +433,69 @@
             position: absolute;
             top: 0;
             left: 50%;
-            transform: translateX(-10%);
-            width: 110px;
-            height: 195px;
+            transform: translateX(-8%);
+            width: 130px;
+            height: 250px;
             background: linear-gradient(135deg, #f0e3d6, #e5d8cb);
             clip-path: polygon(0% 0%, 50% 0%, 100% 100%, 0% 100%);
             z-index: 2;
         }
 
-        /* === RIBBON === at top of wrap where stems meet === */
+        .wrap-paper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.05), transparent);
+        }
+
+        /* Tissue paper peeking out */
+        .tissue {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 11;
+        }
+
+        .tissue-piece {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 0 50% 0 0;
+            backdrop-filter: blur(1px);
+        }
+
+        .tissue-piece:nth-child(1) { width: 60px; height: 40px; left: -50px; transform: rotate(-20deg); background: rgba(255, 245, 238, 0.25); }
+        .tissue-piece:nth-child(2) { width: 50px; height: 35px; left: -10px; transform: rotate(5deg); background: rgba(255, 250, 245, 0.2); }
+        .tissue-piece:nth-child(3) { width: 55px; height: 38px; left: 20px; transform: rotate(25deg); background: rgba(255, 245, 238, 0.22); border-radius: 50% 0 0 0; }
+
+        /* === RIBBON === */
         .ribbon {
             position: absolute;
-            top: 310px;
+            top: 440px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 15;
-            width: 90px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
+            animation: ribbon-appear 0.8s ease-out 0.5s backwards;
+        }
+
+        @keyframes ribbon-appear {
+            0% { opacity: 0; transform: translateX(-50%) scale(0); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1); }
         }
 
         .ribbon-knot {
             position: absolute;
-            top: 15px;
+            top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 22px;
-            height: 18px;
+            width: 26px;
+            height: 22px;
             background: linear-gradient(135deg, #e74c6f, #c44569);
             border-radius: 4px;
             z-index: 3;
@@ -434,9 +504,9 @@
 
         .ribbon-left, .ribbon-right {
             position: absolute;
-            top: 8px;
-            width: 32px;
-            height: 32px;
+            top: 12px;
+            width: 40px;
+            height: 40px;
             z-index: 2;
         }
 
@@ -456,9 +526,9 @@
 
         .ribbon-tail-left, .ribbon-tail-right {
             position: absolute;
-            top: 30px;
-            width: 9px;
-            height: 45px;
+            top: 40px;
+            width: 10px;
+            height: 55px;
             z-index: 1;
         }
 
@@ -467,4 +537,389 @@
             margin-right: 2px;
             background: linear-gradient(to bottom, #c44569, #e74c6f);
             transform: rotate(8deg);
-            clip-path: polygon(0% 
+            clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 50% 100%, 0% 85%);
+            transform-origin: top right;
+        }
+
+        .ribbon-tail-right {
+            left: 50%;
+            margin-left: 2px;
+            background: linear-gradient(to bottom, #c44569, #e74c6f);
+            transform: rotate(-8deg);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 50% 100%, 0% 85%);
+            transform-origin: top left;
+        }
+
+        /* === SPARKLES === */
+        .sparkle {
+            position: absolute;
+            color: rgba(255, 215, 0, 0.9);
+            font-size: 14px;
+            animation: sparkle-anim 2.5s ease-in-out infinite;
+            z-index: 20;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+        }
+
+        .sparkle:nth-child(1) { top: 100px; left: 20px; animation-delay: 0.5s; }
+        .sparkle:nth-child(2) { top: 80px; right: 30px; animation-delay: 1s; }
+        .sparkle:nth-child(3) { top: 180px; left: 10px; animation-delay: 1.5s; }
+        .sparkle:nth-child(4) { top: 170px; right: 15px; animation-delay: 2s; }
+        .sparkle:nth-child(5) { top: 60px; left: 200px; animation-delay: 0.8s; }
+        .sparkle:nth-child(6) { top: 250px; left: 50px; animation-delay: 1.3s; }
+        .sparkle:nth-child(7) { top: 130px; left: 420px; animation-delay: 1.7s; }
+        .sparkle:nth-child(8) { top: 220px; right: 40px; animation-delay: 2.3s; }
+
+        @keyframes sparkle-anim {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+
+        /* === FALLING PETALS === */
+        .falling-petal {
+            position: fixed;
+            width: 12px;
+            height: 14px;
+            border-radius: 50% 0 50% 50%;
+            opacity: 0;
+            animation: fall-petal 10s linear infinite;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .falling-petal:nth-child(1) { left: 10%; background: rgba(255, 107, 138, 0.6); animation-delay: 0s; }
+        .falling-petal:nth-child(2) { left: 25%; background: rgba(248, 200, 220, 0.6); animation-delay: 2s; }
+        .falling-petal:nth-child(3) { left: 40%; background: rgba(216, 180, 254, 0.5); animation-delay: 4s; width: 9px; height: 11px; }
+        .falling-petal:nth-child(4) { left: 55%; background: rgba(255, 145, 164, 0.6); animation-delay: 1s; }
+        .falling-petal:nth-child(5) { left: 70%; background: rgba(255, 182, 193, 0.5); animation-delay: 3s; }
+        .falling-petal:nth-child(6) { left: 85%; background: rgba(192, 132, 252, 0.5); animation-delay: 5s; width: 10px; height: 12px; }
+        .falling-petal:nth-child(7) { left: 33%; background: rgba(255, 107, 107, 0.5); animation-delay: 6s; }
+        .falling-petal:nth-child(8) { left: 62%; background: rgba(253, 213, 229, 0.5); animation-delay: 7s; }
+        .falling-petal:nth-child(9) { left: 18%; background: rgba(255, 160, 180, 0.5); animation-delay: 8s; width: 10px; height: 12px; }
+        .falling-petal:nth-child(10) { left: 78%; background: rgba(200, 150, 255, 0.4); animation-delay: 9s; }
+
+        @keyframes fall-petal {
+            0% { opacity: 0; transform: translateY(-20px) rotate(0deg) translateX(0); }
+            10% { opacity: 0.8; }
+            50% { transform: translateY(50vh) rotate(360deg) translateX(60px); opacity: 0.6; }
+            100% { opacity: 0; transform: translateY(100vh) rotate(720deg) translateX(-30px); }
+        }
+
+        /* === MESSAGES === */
+        .messages {
+            text-align: center;
+            margin-top: 20px;
+            position: relative;
+            z-index: 20;
+            padding: 0 20px;
+            max-width: 600px;
+        }
+
+        .message {
+            font-family: 'Dancing Script', cursive;
+            color: #f8e8ee;
+            opacity: 0;
+            transform: translateY(20px);
+            margin: 12px 0;
+            text-shadow: 0 0 20px rgba(255, 182, 193, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+            line-height: 1.4;
+        }
+
+        .msg1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffd1dc;
+            animation: fadeInMsg 1.5s ease-out 3s forwards;
+        }
+
+        .msg2 {
+            font-size: 22px;
+            font-weight: 400;
+            color: #e8c8d8;
+            animation: fadeInMsg 1.5s ease-out 4.5s forwards;
+        }
+
+        .msg3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffc0d0;
+            animation: fadeInMsg 1.5s ease-out 6s forwards;
+        }
+
+        .heart {
+            display: inline-block;
+            position: relative;
+            width: 20px;
+            height: 18px;
+            vertical-align: middle;
+            animation: heartbeat 1.2s ease-in-out infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 18px;
+            background: #ff6b8a;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .heart::before {
+            left: 0;
+            transform: rotate(-45deg);
+            transform-origin: bottom right;
+        }
+
+        .heart::after {
+            left: 8px;
+            transform: rotate(45deg);
+            transform-origin: bottom left;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.3); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.2); }
+            60% { transform: scale(1); }
+        }
+
+        @keyframes fadeInMsg {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hover interaction */
+        .flower-pos:hover {
+            animation: bloom-bounce 0.5s ease-out;
+            filter: brightness(1.15);
+        }
+
+        @keyframes bloom-bounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 600px) {
+            .scene {
+                transform: scale(0.65);
+                transform-origin: top center;
+                margin-bottom: -200px;
+            }
+            .msg1 { font-size: 22px; }
+            .msg2 { font-size: 18px; }
+            .msg3 { font-size: 20px; }
+        }
+
+        @media (max-width: 400px) {
+            .scene {
+                transform: scale(0.5);
+                margin-bottom: -280px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars">
+        <div class="star"></div><div class="star"></div><div class="star"></div>
+        <div class="star"></div><div class="star"></div><div class="star"></div>
+        <div class="star"></div><div class="star"></div><div class="star"></div>
+        <div class="star"></div><div class="star"></div><div class="star"></div>
+    </div>
+
+    <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
+    <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
+    <div class="firefly"></div><div class="firefly"></div>
+
+    <div class="falling-petal"></div><div class="falling-petal"></div>
+    <div class="falling-petal"></div><div class="falling-petal"></div>
+    <div class="falling-petal"></div><div class="falling-petal"></div>
+    <div class="falling-petal"></div><div class="falling-petal"></div>
+    <div class="falling-petal"></div><div class="falling-petal"></div>
+
+    <div class="scene">
+        <div class="glow"></div>
+
+        <div class="sparkle">✦</div>
+        <div class="sparkle">✦</div>
+        <div class="sparkle">✦</div>
+        <div class="sparkle">✦</div>
+        <div class="sparkle">✦</div>
+        <div class="sparkle">✦</div>
+        <div class="sparkle">✦</div>
+        <div class="sparkle">✦</div>
+
+        <div class="stems">
+            <div class="stem"></div>
+            <div class="stem"><div class="leaf"></div></div>
+            <div class="stem"><div class="leaf"></div></div>
+            <div class="stem"><div class="leaf"></div></div>
+            <div class="stem"><div class="leaf"></div></div>
+            <div class="stem"></div>
+            <div class="stem"></div>
+        </div>
+
+        <div class="flowers">
+            <div class="flower-pos pos-green1">
+                <div class="greenery">
+                    <div class="green-leaf"></div>
+                    <div class="green-leaf"></div>
+                    <div class="green-leaf"></div>
+                </div>
+            </div>
+            <div class="flower-pos pos-green2">
+                <div class="greenery">
+                    <div class="green-leaf"></div>
+                    <div class="green-leaf"></div>
+                    <div class="green-leaf"></div>
+                </div>
+            </div>
+            <div class="flower-pos pos-green3">
+                <div class="greenery">
+                    <div class="green-leaf"></div>
+                    <div class="green-leaf"></div>
+                    <div class="green-leaf"></div>
+                </div>
+            </div>
+            <div class="flower-pos pos-green4">
+                <div class="greenery">
+                    <div class="green-leaf"></div>
+                    <div class="green-leaf"></div>
+                    <div class="green-leaf"></div>
+                </div>
+            </div>
+
+            <div class="flower-pos pos-bb1"><div class="babys-breath">
+                <div class="bb-dot"></div><div class="bb-dot"></div><div class="bb-dot"></div>
+                <div class="bb-dot"></div><div class="bb-dot"></div><div class="bb-dot"></div>
+            </div></div>
+            <div class="flower-pos pos-bb2"><div class="babys-breath">
+                <div class="bb-dot"></div><div class="bb-dot"></div><div class="bb-dot"></div>
+                <div class="bb-dot"></div><div class="bb-dot"></div><div class="bb-dot"></div>
+            </div></div>
+            <div class="flower-pos pos-bb3"><div class="babys-breath">
+                <div class="bb-dot"></div><div class="bb-dot"></div><div class="bb-dot"></div>
+                <div class="bb-dot"></div>
+            </div></div>
+            <div class="flower-pos pos-bb4"><div class="babys-breath">
+                <div class="bb-dot"></div><div class="bb-dot"></div><div class="bb-dot"></div>
+                <div class="bb-dot"></div>
+            </div></div>
+            <div class="flower-pos pos-bb5"><div class="babys-breath">
+                <div class="bb-dot"></div><div class="bb-dot"></div><div class="bb-dot"></div>
+                <div class="bb-dot"></div><div class="bb-dot"></div>
+            </div></div>
+
+            <div class="flower-pos pos-peony1">
+                <div class="peony peony-pink">
+                    <div class="peony-petal-ring ring1">
+                        <div class="peony-petal"></div><div class="peony-petal"></div><div class="peony-petal"></div>
+                        <div class="peony-petal"></div><div class="peony-petal"></div><div class="peony-petal"></div>
+                    </div>
+                    <div class="peony-petal-ring ring2">
+                        <div class="peony-petal"></div><div class="peony-petal"></div><div class="peony-petal"></div>
+                        <div class="peony-petal"></div><div class="peony-petal"></div><div class="peony-petal"></div>
+                    </div>
+                    <div class="peony-center"></div>
+                </div>
+            </div>
+
+            <div class="flower-pos pos-peony2">
+                <div class="peony peony-lav">
+                    <div class="peony-petal-ring ring1">
+                        <div class="peony-petal"></div><div class="peony-petal"></div><div class="peony-petal"></div>
+                        <div class="peony-petal"></div><div class="peony-petal"></div>
+                    </div>
+                    <div class="peony-petal-ring ring2">
+                        <div class="peony-petal"></div><div class="peony-petal"></div><div class="peony-petal"></div>
+                        <div class="peony-petal"></div><div class="peony-petal"></div>
+                    </div>
+                    <div class="peony-center"></div>
+                </div>
+            </div>
+
+            <div class="flower-pos pos-peony3">
+                <div class="peony peony-lav">
+                    <div class="peony-petal-ring ring1">
+                        <div class="peony-petal"></div><div class="peony-petal"></div><div class="peony-petal"></div>
+                        <div class="peony-petal"></div><div class="peony-petal"></div>
+                    </div>
+                    <div class="peony-petal-ring ring2">
+                        <div class="peony-petal"></div><div class="peony-petal"></div><div class="peony-petal"></div>
+                        <div class="peony-petal"></div><div class="peony-petal"></div>
+                    </div>
+                    <div class="peony-center"></div>
+                </div>
+            </div>
+
+            <div class="flower-pos pos-rose1">
+                <div class="rose rose-red">
+                    <div class="rose-petal"></div><div class="rose-petal"></div>
+                    <div class="rose-petal"></div><div class="rose-petal"></div>
+                    <div class="rose-petal"></div>
+                    <div class="rose-center"></div>
+                </div>
+            </div>
+            <div class="flower-pos pos-rose2">
+                <div class="rose rose-pink">
+                    <div class="rose-petal"></div><div class="rose-petal"></div>
+                    <div class="rose-petal"></div><div class="rose-petal"></div>
+                    <div class="rose-petal"></div>
+                    <div class="rose-center"></div>
+                </div>
+            </div>
+            <div class="flower-pos pos-rose3">
+                <div class="rose rose-deep">
+                    <div class="rose-petal"></div><div class="rose-petal"></div>
+                    <div class="rose-petal"></div><div class="rose-petal"></div>
+                    <div class="rose-petal"></div>
+                    <div class="rose-center"></div>
+                </div>
+            </div>
+
+            <div class="flower-pos pos-tulip1">
+                <div class="tulip tulip-orange">
+                    <div class="tulip-petal"></div>
+                    <div class="tulip-petal"></div>
+                    <div class="tulip-petal"></div>
+                </div>
+            </div>
+            <div class="flower-pos pos-tulip2">
+                <div class="tulip tulip-orange">
+                    <div class="tulip-petal"></div>
+                    <div class="tulip-petal"></div>
+                    <div class="tulip-petal"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrap">
+            <div class="tissue">
+                <div class="tissue-piece"></div>
+                <div class="tissue-piece"></div>
+                <div class="tissue-piece"></div>
+            </div>
+            <div class="wrap-fold-left"></div>
+            <div class="wrap-fold-right"></div>
+            <div class="wrap-paper"></div>
+        </div>
+
+        <div class="ribbon">
+            <div class="ribbon-tail-left"></div>
+            <div class="ribbon-tail-right"></div>
+            <div class="ribbon-left"></div>
+            <div class="ribbon-right"></div>
+            <div class="ribbon-knot"></div>
+        </div>
+    </div>
+
+    <div class="messages">
+        <div class="message msg1">Hey Steph❤️, here are the flowers for you</div>
+        <div class="message msg2">I'm still not lucky enough to bring em in person</div>
+        <div class="message msg3">... but i hope they make you smile <span class="heart"></span></div>
+    </div>
+
+</body>
+</html>
