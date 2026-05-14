@@ -23,7 +23,7 @@
     }
     @keyframes clearOverlay { to { opacity: 0; visibility: hidden; } }
 
-    /* The glowing message bubbles */
+    /* The glowing message bubbles - Desktop Base */
     .message {
         position: absolute;
         border: 2px solid #ff1a1a;
@@ -44,7 +44,7 @@
         animation: floatMsg 4s ease-in-out infinite alternate, fadeInMsg 1.5s ease-out forwards;
     }
 
-    /* Staggered load times for messages */
+    /* Staggered load times for messages (Desktop layout) */
     .msg1 { top: 15%; left: 10%; animation-delay: 1.0s, 1.0s; }
     .msg2 { top: 25%; right: 10%; animation-delay: 1.5s, 1.5s; animation-direction: alternate-reverse; }
     .msg3 { bottom: 35%; left: 8%; animation-delay: 2.0s, 2.0s; }
@@ -145,32 +145,73 @@
         100% { transform: translateY(-10vh) translateX(-10px) scale(0); opacity: 0; }
     }
 
-    /* 📱 MOBILE RESPONSIVENESS (The Fix) */
+    /* 📱 MOBILE RESPONSIVENESS (Layout Engine completely rewritten) */
     @media (max-width: 768px) {
         .flower-cluster { 
-            transform: scale(0.65); /* Shrinks the flower to make room */
+            transform: scale(0.65); /* Keeps flowers appropriately sized */
             bottom: -30px; 
         }
         @keyframes growBouquet { from { transform: scale(0) translateY(100px); } to { transform: scale(0.65) translateY(0); } }
         
         .message { 
-            font-size: 0.85rem; 
-            padding: 10px 18px; 
-            white-space: normal; /* Allows wrapping if absolutely needed */
-            max-width: 85vw;
+            font-size: 0.95rem; 
+            padding: 12px 15px; 
+            white-space: normal; /* Enables multi-line wrapping */
+            line-height: 1.4;
         }
 
-        /* Repositioning messages to frame the flower, not cover it */
-        .msg1 { top: 8%; left: 50%; transform: translateX(-50%); animation: fadeInMsgMobile 1.5s ease forwards, floatCenterMobile 4s ease-in-out infinite alternate; animation-delay: 1s, 1s; }
-        .msg2 { top: 19%; left: 50%; transform: translateX(-50%); animation: fadeInMsgMobile 1.5s ease forwards, floatCenterMobile 4.5s ease-in-out infinite alternate-reverse; animation-delay: 1.5s, 1.5s; }
+        /* Top Center */
+        .msg1 { 
+            top: 10%; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: max-content;
+            max-width: 75vw;
+            animation: fadeInMsgCentered 1.5s ease forwards, floatMsgCentered 4s ease-in-out infinite alternate; 
+            animation-delay: 1s, 1s; 
+        }
         
-        /* Push the bottom messages to the sides to clear the main bloom */
-        .msg3 { bottom: 25%; left: 2%; transform: none; animation: fadeInMsg 1.5s ease forwards, floatMsg 4s ease-in-out infinite alternate; animation-delay: 2s, 2s; width: max-content; }
-        .msg4 { bottom: 18%; right: 2%; transform: none; animation: fadeInMsg 1.5s ease forwards, floatMsg 4.5s ease-in-out infinite alternate-reverse; animation-delay: 2.5s, 2.5s; width: max-content;}
+        /* Middle Left (Side by side) */
+        .msg2 { 
+            top: 26%; 
+            left: 4vw; 
+            right: auto;
+            width: 44vw; 
+            animation: fadeInMsg 1.5s ease forwards, floatMsg 4.5s ease-in-out infinite alternate-reverse; 
+            animation-delay: 1.5s, 1.5s; 
+        }
+        
+        /* Middle Right (Side by side) */
+        .msg4 { 
+            top: 26%; 
+            right: 4vw; 
+            left: auto;
+            width: 44vw; 
+            animation: fadeInMsg 1.5s ease forwards, floatMsg 4s ease-in-out infinite alternate; 
+            animation-delay: 2.5s, 2.5s; 
+        }
+
+        /* Bottom Center (Hovers right above flowers) */
+        .msg3 { 
+            bottom: 34%; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: max-content;
+            max-width: 85vw;
+            animation: fadeInMsgCentered 1.5s ease forwards, floatMsgCentered 4.5s ease-in-out infinite alternate-reverse; 
+            animation-delay: 2s, 2s; 
+        }
     }
 
-    @keyframes fadeInMsgMobile { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
-    @keyframes floatCenterMobile { 0% { transform: translate(-50%, 0px); } 100% { transform: translate(-50%, -10px); } }
+    /* Special keyframes needed to maintain the -50% centering on mobile while floating */
+    @keyframes fadeInMsgCentered { 
+        from { opacity: 0; transform: translate(-50%, 20px); } 
+        to { opacity: 1; transform: translate(-50%, 0); } 
+    }
+    @keyframes floatMsgCentered { 
+        0% { transform: translate(-50%, 0px); } 
+        100% { transform: translate(-50%, -10px); } 
+    }
 
 </style>
 </head>
